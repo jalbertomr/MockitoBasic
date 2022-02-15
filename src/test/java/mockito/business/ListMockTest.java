@@ -1,13 +1,16 @@
 package mockito.business;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.given;
 
 import java.util.List;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class ListMockTest {
 
@@ -51,6 +54,17 @@ public class ListMockTest {
 		assertEquals("getting[0] element", listMock.get(0));
 		assertEquals("getting[0] element", listMock.get(3));
 		assertEquals("getting[0] element", listMock.get(1000));
+	}
+	
+	@Test
+	public void BDD_mockListArgumentMatching() {
+		List<String> list = mock(List.class);
+		
+		//given
+		given(list.get(Mockito.anyInt())).willReturn("Return This for anyInt");
+		//then
+		assertThat("Return This for anyInt", is(list.get(0)));
+		assertThat("Return This for anyInt", is(list.get(1)));
 	}
 	
 	@Test(expected=RuntimeException.class)

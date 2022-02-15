@@ -22,4 +22,13 @@ public class TodoBusiness {
 	   }
 	return filteredTodos;
    }
+   
+   public void deleteTodosNotRelatedToSpring(String user) {
+	  List<String> allTodos = todoService.retiveTodos(user);
+	  for (String todo: allTodos) {
+		  if (!todo.toUpperCase().contains("SPRING")) {
+			  todoService.deleteTodo(todo);
+		  }
+	  }
+   }
 }
