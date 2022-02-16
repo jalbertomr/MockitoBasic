@@ -13,4 +13,14 @@ public class TodoServiceImplStub implements TodoService {
 
 	public void deleteTodo(String todo) {
 	}
+	
+	//This private method can not be mocked because private is not seen
+	private List<String> privateRetriveTodos(String user){
+		return Arrays.asList("1 from private method","1 from private method","1 from private method");
+	}
+	
+	//This final method can not be mocked because private is not seen
+	final public void finalDeleteTodo(String user) {
+		
+	}
 }

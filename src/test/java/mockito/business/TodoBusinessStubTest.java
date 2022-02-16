@@ -1,12 +1,14 @@
 package mockito.business;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
 
-import mockito.business.TodoBusiness;
 import mockito.todo.TodoService;
 import mockito.todo.impl.TodoServiceImplStub;
 
@@ -20,4 +22,12 @@ public class TodoBusinessStubTest {
 		assertEquals(2, filteredTodos.size());
 	}
 
+	@Test
+	public void privateOrFinalMethod() {
+	   TodoService todoService = mock(TodoServiceImplStub.class);
+	   /* private of final Method cannot be seened
+	   when(todoService.privateRetriveTodos("X_User")).thenReturn(Arrays.asList("Private Method never seen to be mocked","or Final methods"));
+	   */
+	   assertTrue(true);
+	}
 }
