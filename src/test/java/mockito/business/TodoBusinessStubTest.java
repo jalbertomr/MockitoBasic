@@ -1,6 +1,7 @@
 package mockito.business;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -8,10 +9,19 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 
 import mockito.todo.TodoService;
 import mockito.todo.impl.TodoServiceImplStub;
 
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ TodoServiceImplStub.class }) //Class that has the static method to mock
 public class TodoBusinessStubTest {
 
 	@Test
@@ -32,13 +42,19 @@ public class TodoBusinessStubTest {
 	}
 	
 	@Test
-	public void staticMethod_cannotBeMockedTest() {
-		//mock returns a no static instance
-		TodoService todoService = mock(TodoServiceImplStub.class);
-		//to call the staticMethod the mocked instance is not static
-		//when(TodoServiceImplStub.staticRetrieveATodo("X_user")).thenReturn("otherTodo");
+	public void staticMethod_PowerMockedTest() {
+		
+		PowerMockito.mockStatic(TodoServiceImplStub.class);
+		
+		when(TodoServiceImplStub.staticRetrieveATodo(anyString())).thenReturn("otherTodo");
+		
+		assertEquals("otherTodo", TodoServiceImplStub.staticRetrieveATodo("X_user"));
 		
 		String todo = TodoServiceImplStub.staticRetrieveATodo("X_user");
-		assertEquals("OriginalStaticTodo", todo);
+		assertEquals("otherTodo", todo);
+		
+		PowerMockito.verifyStatic(Mockito.times(2));
+		TodoServiceImplStub.staticRetrieveATodo("X_user");
 	}
+	
 }
