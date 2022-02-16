@@ -21,6 +21,8 @@ public class SpyTest {
 		assertEquals(0, listSpyed.size());
 		listSpyed.add("EffectonSpyed");
 		assertEquals(1, listSpyed.size());
+		listSpyed.remove("EffectonSpyed");
+		assertEquals(0, listSpyed.size());
 	}
 
 }
