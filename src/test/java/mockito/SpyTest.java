@@ -17,12 +17,14 @@ public class SpyTest {
 	@Test
 	public void test() {
 		List listSpyed = spy(ArrayList.class);
-		//mocks return default value
-		assertEquals(0, listSpyed.size());
+		// spy and stub, overrides size method
+		stub(listSpyed.size()).toReturn(5);
+		assertEquals(5, listSpyed.size());
 		listSpyed.add("EffectonSpyed");
-		assertEquals(1, listSpyed.size());
-		listSpyed.remove("EffectonSpyed");
-		assertEquals(0, listSpyed.size());
+		assertEquals(5, listSpyed.size());
+		String elem = (String) listSpyed.get(0);
+		assertEquals(elem, "EffectonSpyed");
+		
 	}
 
 }
