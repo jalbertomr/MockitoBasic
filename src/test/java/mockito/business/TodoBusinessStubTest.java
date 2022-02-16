@@ -30,4 +30,15 @@ public class TodoBusinessStubTest {
 	   */
 	   assertTrue(true);
 	}
+	
+	@Test
+	public void staticMethod_cannotBeMockedTest() {
+		//mock returns a no static instance
+		TodoService todoService = mock(TodoServiceImplStub.class);
+		//to call the staticMethod the mocked instance is not static
+		//when(TodoServiceImplStub.staticRetrieveATodo("X_user")).thenReturn("otherTodo");
+		
+		String todo = TodoServiceImplStub.staticRetrieveATodo("X_user");
+		assertEquals("OriginalStaticTodo", todo);
+	}
 }

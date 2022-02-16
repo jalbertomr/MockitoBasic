@@ -23,4 +23,8 @@ public class TodoServiceImplStub implements TodoService {
 	final public void finalDeleteTodo(String user) {
 		
 	}
+	
+	static public String staticRetrieveATodo(String user) {
+		return "OriginalStaticTodo";
+	}
 }
