@@ -2,6 +2,7 @@ package mockito;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.stub;
 import static org.mockito.Mockito.when;
 
@@ -15,14 +16,11 @@ public class SpyTest {
 
 	@Test
 	public void test() {
-		List listMocked = mock(ArrayList.class);
+		List listSpyed = spy(ArrayList.class);
 		//mocks return default value
-		assertEquals(0, listMocked.size());
-		
-		stub(listMocked.size()).toReturn(5);
-		listMocked.add("DontEffectonStub");
-		
-		assertEquals(5, listMocked.size());
+		assertEquals(0, listSpyed.size());
+		listSpyed.add("EffectonSpyed");
+		assertEquals(1, listSpyed.size());
 	}
 
 }
