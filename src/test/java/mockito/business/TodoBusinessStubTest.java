@@ -18,6 +18,7 @@ import mockito.todo.impl.TodoServiceImplStub;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 
 
 @RunWith(PowerMockRunner.class)
@@ -33,12 +34,15 @@ public class TodoBusinessStubTest {
 	}
 
 	@Test
-	public void privateOrFinalMethod() {
+	public void privateOrFinalMethodTest() throws Exception {
+		
+	   //ToDo Replace this mock with Mock, InjectMocks	
 	   TodoService todoService = mock(TodoServiceImplStub.class);
-	   /* private of final Method cannot be seened
-	   when(todoService.privateRetriveTodos("X_User")).thenReturn(Arrays.asList("Private Method never seen to be mocked","or Final methods"));
-	   */
-	   assertTrue(true);
+	   
+	   //when(todoService.privateRetriveTodos("X_User")).thenReturn(Arrays.asList("Private Method never seen to be mocked","or Final methods"));
+	   
+	  List<String> listTodos = Whitebox.invokeMethod(todoService,"privateRetriveTodos","X_user");
+	   assertEquals("1 from private method", listTodos.get(0) );
 	}
 	
 	@Test
